@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+output/
+input/
+models/
+*.webm.tmp
+*.mp4.tmp

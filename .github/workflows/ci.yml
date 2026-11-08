@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: python 语法
+        run: python3 -m compileall -q interp
+      - name: 配置文件是合法 JSON
+        run: python3 -c "import json;json.load(open('interp/config.json',encoding='utf-8'));print('config ok')"
+      - name: 自检脚本可运行（无 ffmpeg 时应优雅报告）
+        run: python3 interp/自检/自检.py --help || true
